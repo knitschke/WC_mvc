@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WorldCupDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Country_Id" />
+          </Key>
+          <Property Name="Country_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\KRZYCHU\SOURCE\REPOS\WC_MVC\WC_MVC\APP_DATA\WORLDCUPDB.MDF.dbo.CountryInGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CountryInGroup">
+          <Key>
+            <PropertyRef Name="Country_Id" />
+            <PropertyRef Name="Group_Id" />
+            <PropertyRef Name="WC_Id" />
+          </Key>
+          <Property Name="Country_Id" Type="int" Nullable="false" />
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+          <Property Name="WC_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Game_Id" />
+          </Key>
+          <Property Name="Game_Id" Type="int" Nullable="false" />
+          <Property Name="Score1_90" Type="int" Nullable="false" />
+          <Property Name="Score2_90" Type="int" Nullable="false" />
+          <Property Name="Score1_120" Type="int" />
+          <Property Name="Score2_120" Type="int" />
+          <Property Name="PK1" Type="int" />
+          <Property Name="PK2" Type="int" />
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+          <Property Name="WC_Id" Type="int" Nullable="false" />
+          <Property Name="Country_Id1" Type="int" Nullable="false" />
+          <Property Name="Country_Id2" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Phase">
+          <Key>
+            <PropertyRef Name="Phase_Id" />
+          </Key>
+          <Property Name="Phase_Id" Type="int" Nullable="false" />
+          <Property Name="PhaseName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="WC_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Scorer">
+          <Key>
+            <PropertyRef Name="Scorer_Id" />
+          </Key>
+          <Property Name="Scorer_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Country_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\KRZYCHU\SOURCE\REPOS\WC_MVC\WC_MVC\APP_DATA\WORLDCUPDB.MDF.dbo.ScorerInGame' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ScorerInGame">
+          <Key>
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="Scorer_Id" />
+            <PropertyRef Name="Game_Id" />
+          </Key>
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Scorer_Id" Type="int" Nullable="false" />
+          <Property Name="Game_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorldCup">
+          <Key>
+            <PropertyRef Name="WC_Id" />
+          </Key>
+          <Property Name="WC_Id" Type="int" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CountryIn__Count__2D27B809">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="Country_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryIn__Group__2E1BDC42">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryIn__WC_Id__398D8EEE">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Country_Id__3C69FB99">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Country_Id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Country_Id__3D5E1FD2">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Country_Id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Group_Id__3F466844">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__WC_Id__403A8C7D">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Phase__WC_Id__276EDEB3">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="Phase" Type="Self.Phase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="Phase">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Scorer__Country___35BCFE0A">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Scorer" Type="Self.Scorer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Scorer">
+              <PropertyRef Name="Country_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScorerInG__Game___3E52440B">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="ScorerInGame" Type="Self.ScorerInGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Game_Id" />
+            </Principal>
+            <Dependent Role="ScorerInGame">
+              <PropertyRef Name="Game_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScorerInG__Score__38996AB5">
+          <End Role="Scorer" Type="Self.Scorer" Multiplicity="1" />
+          <End Role="ScorerInGame" Type="Self.ScorerInGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scorer">
+              <PropertyRef Name="Scorer_Id" />
+            </Principal>
+            <Dependent Role="ScorerInGame">
+              <PropertyRef Name="Scorer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WorldCupDbModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phase" EntityType="Self.Phase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scorer" EntityType="Self.Scorer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorldCup" EntityType="Self.WorldCup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountryInGroup" EntityType="Self.CountryInGroup" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CountryInGroup].[Country_Id] AS [Country_Id], 
+    [CountryInGroup].[Group_Id] AS [Group_Id], 
+    [CountryInGroup].[WC_Id] AS [WC_Id]
+    FROM [dbo].[CountryInGroup] AS [CountryInGroup]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ScorerInGame" EntityType="Self.ScorerInGame" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ScorerInGame].[Amount] AS [Amount], 
+    [ScorerInGame].[Scorer_Id] AS [Scorer_Id], 
+    [ScorerInGame].[Game_Id] AS [Game_Id]
+    FROM [dbo].[ScorerInGame] AS [ScorerInGame]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__CountryIn__Count__2D27B809" Association="Self.FK__CountryIn__Count__2D27B809">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryIn__Group__2E1BDC42" Association="Self.FK__CountryIn__Group__2E1BDC42">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryIn__WC_Id__398D8EEE" Association="Self.FK__CountryIn__WC_Id__398D8EEE">
+            <End Role="WorldCup" EntitySet="WorldCup" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Country_Id__3C69FB99" Association="Self.FK__Game__Country_Id__3C69FB99">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Country_Id__3D5E1FD2" Association="Self.FK__Game__Country_Id__3D5E1FD2">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Group_Id__3F466844" Association="Self.FK__Game__Group_Id__3F466844">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__WC_Id__403A8C7D" Association="Self.FK__Game__WC_Id__403A8C7D">
+            <End Role="WorldCup" EntitySet="WorldCup" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Phase__WC_Id__276EDEB3" Association="Self.FK__Phase__WC_Id__276EDEB3">
+            <End Role="WorldCup" EntitySet="WorldCup" />
+            <End Role="Phase" EntitySet="Phase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scorer__Country___35BCFE0A" Association="Self.FK__Scorer__Country___35BCFE0A">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Scorer" EntitySet="Scorer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScorerInG__Game___3E52440B" Association="Self.FK__ScorerInG__Game___3E52440B">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="ScorerInGame" EntitySet="ScorerInGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScorerInG__Score__38996AB5" Association="Self.FK__ScorerInG__Score__38996AB5">
+            <End Role="Scorer" EntitySet="Scorer" />
+            <End Role="ScorerInGame" EntitySet="ScorerInGame" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WorldCupDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Country_Id" />
+          </Key>
+          <Property Name="Country_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CountryInGroups" Relationship="Self.FK__CountryIn__Count__2D27B809" FromRole="Country" ToRole="CountryInGroup" />
+          <NavigationProperty Name="Games" Relationship="Self.FK__Game__Country_Id__3C69FB99" FromRole="Country" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="Self.FK__Game__Country_Id__3D5E1FD2" FromRole="Country" ToRole="Game" />
+          <NavigationProperty Name="Scorers" Relationship="Self.FK__Scorer__Country___35BCFE0A" FromRole="Country" ToRole="Scorer" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Game_Id" />
+          </Key>
+          <Property Name="Game_Id" Type="Int32" Nullable="false" />
+          <Property Name="Score1_90" Type="Int32" Nullable="false" />
+          <Property Name="Score2_90" Type="Int32" Nullable="false" />
+          <Property Name="Score1_120" Type="Int32" />
+          <Property Name="Score2_120" Type="Int32" />
+          <Property Name="PK1" Type="Int32" />
+          <Property Name="PK2" Type="Int32" />
+          <Property Name="Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="WC_Id" Type="Int32" Nullable="false" />
+          <Property Name="Country_Id1" Type="Int32" Nullable="false" />
+          <Property Name="Country_Id2" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Game__Country_Id__3C69FB99" FromRole="Game" ToRole="Country" />
+          <NavigationProperty Name="Country1" Relationship="Self.FK__Game__Country_Id__3D5E1FD2" FromRole="Game" ToRole="Country" />
+          <NavigationProperty Name="Group" Relationship="Self.FK__Game__Group_Id__3F466844" FromRole="Game" ToRole="Groups" />
+          <NavigationProperty Name="WorldCup" Relationship="Self.FK__Game__WC_Id__403A8C7D" FromRole="Game" ToRole="WorldCup" />
+          <NavigationProperty Name="ScorerInGames" Relationship="Self.FK__ScorerInG__Game___3E52440B" FromRole="Game" ToRole="ScorerInGame" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK__Game__Group_Id__3F466844" FromRole="Groups" ToRole="Game" />
+          <NavigationProperty Name="CountryInGroups" Relationship="Self.FK__CountryIn__Group__2E1BDC42" FromRole="Groups" ToRole="CountryInGroup" />
+        </EntityType>
+        <EntityType Name="Phase">
+          <Key>
+            <PropertyRef Name="Phase_Id" />
+          </Key>
+          <Property Name="Phase_Id" Type="Int32" Nullable="false" />
+          <Property Name="PhaseName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WC_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorldCup" Relationship="Self.FK__Phase__WC_Id__276EDEB3" FromRole="Phase" ToRole="WorldCup" />
+        </EntityType>
+        <EntityType Name="Scorer">
+          <Key>
+            <PropertyRef Name="Scorer_Id" />
+          </Key>
+          <Property Name="Scorer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Scorer__Country___35BCFE0A" FromRole="Scorer" ToRole="Country" />
+          <NavigationProperty Name="ScorerInGames" Relationship="Self.FK__ScorerInG__Score__38996AB5" FromRole="Scorer" ToRole="ScorerInGame" />
+        </EntityType>
+        <EntityType Name="WorldCup">
+          <Key>
+            <PropertyRef Name="WC_Id" />
+          </Key>
+          <Property Name="WC_Id" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK__Game__WC_Id__403A8C7D" FromRole="WorldCup" ToRole="Game" />
+          <NavigationProperty Name="Phases" Relationship="Self.FK__Phase__WC_Id__276EDEB3" FromRole="WorldCup" ToRole="Phase" />
+          <NavigationProperty Name="CountryInGroups" Relationship="Self.FK__CountryIn__WC_Id__398D8EEE" FromRole="WorldCup" ToRole="CountryInGroup" />
+        </EntityType>
+        <EntityType Name="CountryInGroup">
+          <Key>
+            <PropertyRef Name="Country_Id" />
+            <PropertyRef Name="Group_Id" />
+            <PropertyRef Name="WC_Id" />
+          </Key>
+          <Property Name="Country_Id" Type="Int32" Nullable="false" />
+          <Property Name="Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="WC_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__CountryIn__Count__2D27B809" FromRole="CountryInGroup" ToRole="Country" />
+          <NavigationProperty Name="Group" Relationship="Self.FK__CountryIn__Group__2E1BDC42" FromRole="CountryInGroup" ToRole="Groups" />
+          <NavigationProperty Name="WorldCup" Relationship="Self.FK__CountryIn__WC_Id__398D8EEE" FromRole="CountryInGroup" ToRole="WorldCup" />
+        </EntityType>
+        <EntityType Name="ScorerInGame">
+          <Key>
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="Scorer_Id" />
+            <PropertyRef Name="Game_Id" />
+          </Key>
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Scorer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Game_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK__ScorerInG__Game___3E52440B" FromRole="ScorerInGame" ToRole="Game" />
+          <NavigationProperty Name="Scorer" Relationship="Self.FK__ScorerInG__Score__38996AB5" FromRole="ScorerInGame" ToRole="Scorer" />
+        </EntityType>
+        <Association Name="FK__CountryIn__Count__2D27B809">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="Country_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Country_Id__3C69FB99">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Country_Id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Country_Id__3D5E1FD2">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Country_Id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Scorer__Country___35BCFE0A">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Scorer" Type="Self.Scorer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_Id" />
+            </Principal>
+            <Dependent Role="Scorer">
+              <PropertyRef Name="Country_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__Group_Id__3F466844">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__WC_Id__403A8C7D">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScorerInG__Game___3E52440B">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="ScorerInGame" Type="Self.ScorerInGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Game_Id" />
+            </Principal>
+            <Dependent Role="ScorerInGame">
+              <PropertyRef Name="Game_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryIn__Group__2E1BDC42">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Phase__WC_Id__276EDEB3">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="Phase" Type="Self.Phase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="Phase">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScorerInG__Score__38996AB5">
+          <End Role="Scorer" Type="Self.Scorer" Multiplicity="1" />
+          <End Role="ScorerInGame" Type="Self.ScorerInGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scorer">
+              <PropertyRef Name="Scorer_Id" />
+            </Principal>
+            <Dependent Role="ScorerInGame">
+              <PropertyRef Name="Scorer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryIn__WC_Id__398D8EEE">
+          <End Role="WorldCup" Type="Self.WorldCup" Multiplicity="1" />
+          <End Role="CountryInGroup" Type="Self.CountryInGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorldCup">
+              <PropertyRef Name="WC_Id" />
+            </Principal>
+            <Dependent Role="CountryInGroup">
+              <PropertyRef Name="WC_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WorldCupDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="Phases" EntityType="Self.Phase" />
+          <EntitySet Name="Scorers" EntityType="Self.Scorer" />
+          <EntitySet Name="WorldCups" EntityType="Self.WorldCup" />
+          <EntitySet Name="CountryInGroups" EntityType="Self.CountryInGroup" />
+          <EntitySet Name="ScorerInGames" EntityType="Self.ScorerInGame" />
+          <AssociationSet Name="FK__CountryIn__Count__2D27B809" Association="Self.FK__CountryIn__Count__2D27B809">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Country_Id__3C69FB99" Association="Self.FK__Game__Country_Id__3C69FB99">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Country_Id__3D5E1FD2" Association="Self.FK__Game__Country_Id__3D5E1FD2">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scorer__Country___35BCFE0A" Association="Self.FK__Scorer__Country___35BCFE0A">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Scorer" EntitySet="Scorers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__Group_Id__3F466844" Association="Self.FK__Game__Group_Id__3F466844">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__WC_Id__403A8C7D" Association="Self.FK__Game__WC_Id__403A8C7D">
+            <End Role="WorldCup" EntitySet="WorldCups" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScorerInG__Game___3E52440B" Association="Self.FK__ScorerInG__Game___3E52440B">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="ScorerInGame" EntitySet="ScorerInGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryIn__Group__2E1BDC42" Association="Self.FK__CountryIn__Group__2E1BDC42">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Phase__WC_Id__276EDEB3" Association="Self.FK__Phase__WC_Id__276EDEB3">
+            <End Role="WorldCup" EntitySet="WorldCups" />
+            <End Role="Phase" EntitySet="Phases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScorerInG__Score__38996AB5" Association="Self.FK__ScorerInG__Score__38996AB5">
+            <End Role="Scorer" EntitySet="Scorers" />
+            <End Role="ScorerInGame" EntitySet="ScorerInGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryIn__WC_Id__398D8EEE" Association="Self.FK__CountryIn__WC_Id__398D8EEE">
+            <End Role="WorldCup" EntitySet="WorldCups" />
+            <End Role="CountryInGroup" EntitySet="CountryInGroups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WorldCupDbModelStoreContainer" CdmEntityContainer="WorldCupDbEntities">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="WorldCupDbModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="WorldCupDbModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="Game_Id" ColumnName="Game_Id" />
+                <ScalarProperty Name="Score1_90" ColumnName="Score1_90" />
+                <ScalarProperty Name="Score2_90" ColumnName="Score2_90" />
+                <ScalarProperty Name="Score1_120" ColumnName="Score1_120" />
+                <ScalarProperty Name="Score2_120" ColumnName="Score2_120" />
+                <ScalarProperty Name="PK1" ColumnName="PK1" />
+                <ScalarProperty Name="PK2" ColumnName="PK2" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="WC_Id" ColumnName="WC_Id" />
+                <ScalarProperty Name="Country_Id1" ColumnName="Country_Id1" />
+                <ScalarProperty Name="Country_Id2" ColumnName="Country_Id2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="WorldCupDbModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phases">
+            <EntityTypeMapping TypeName="WorldCupDbModel.Phase">
+              <MappingFragment StoreEntitySet="Phase">
+                <ScalarProperty Name="Phase_Id" ColumnName="Phase_Id" />
+                <ScalarProperty Name="PhaseName" ColumnName="PhaseName" />
+                <ScalarProperty Name="WC_Id" ColumnName="WC_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scorers">
+            <EntityTypeMapping TypeName="WorldCupDbModel.Scorer">
+              <MappingFragment StoreEntitySet="Scorer">
+                <ScalarProperty Name="Scorer_Id" ColumnName="Scorer_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorldCups">
+            <EntityTypeMapping TypeName="WorldCupDbModel.WorldCup">
+              <MappingFragment StoreEntitySet="WorldCup">
+                <ScalarProperty Name="WC_Id" ColumnName="WC_Id" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountryInGroups">
+            <EntityTypeMapping TypeName="WorldCupDbModel.CountryInGroup">
+              <MappingFragment StoreEntitySet="CountryInGroup">
+                <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="WC_Id" ColumnName="WC_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScorerInGames">
+            <EntityTypeMapping TypeName="WorldCupDbModel.ScorerInGame">
+              <MappingFragment StoreEntitySet="ScorerInGame">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Scorer_Id" ColumnName="Scorer_Id" />
+                <ScalarProperty Name="Game_Id" ColumnName="Game_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

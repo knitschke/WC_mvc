@@ -1,0 +1,34 @@
+﻿@model WC_mvc.Models.ScorerInGame
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ScorerInGame</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Game_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Game_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scorer.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scorer.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

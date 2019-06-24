@@ -1,0 +1,98 @@
+﻿@model WC_mvc.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Score1_90)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score1_90)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score2_90)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score2_90)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score1_120)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score1_120)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score2_120)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score2_120)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PK1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PK1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PK2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PK2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Group.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Group.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorldCup.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorldCup.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Game_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

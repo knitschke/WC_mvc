@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b3f04db5dc44c308cbf1f6dc9d6d01d" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="WorldCupDbModel.Country" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.Game" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.Group" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.Phase" Width="1.5" PointX="6" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.Scorer" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.WorldCup" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.CountryInGroup" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorldCupDbModel.ScorerInGame" Width="1.5" PointX="7" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="WorldCupDbModel.FK__CountryIn__Count__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Game__Country_Id__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Game__Country_Id__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Scorer__Country___35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Game__Group_Id__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Game__WC_Id__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__ScorerInG__Game___3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__CountryIn__Group__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__Phase__WC_Id__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__ScorerInG__Score__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="WorldCupDbModel.FK__CountryIn__WC_Id__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

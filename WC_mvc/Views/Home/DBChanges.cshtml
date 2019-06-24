@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "DBChanges";
+}
+<h3>@ViewBag.Message</h3>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<div style="align-items:center; align-items:center">
+    <button class="block" onclick="location.href='@Url.Action("Index", "Countries")'" />Countries<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "CountryInGroups")'"/>CountryInGroups<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "Games")'" />Games<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "Groups")'" />Groups<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "Phases")'" />Phases<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "ScorerInGames")'" />ScorerInGames<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "Scorers")'" />Scorers<br />
+    <button class="block" onclick="location.href='@Url.Action("Index", "WorldCups")'" />WorldCups<br />
+
+
+</div>

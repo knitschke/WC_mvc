@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WC_mvc.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h3>
+    @Html.ActionLink("Create New", "Create")
+</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Score1_90)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score2_90)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score1_120)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score2_120)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PK1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PK2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country1.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Group.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorldCup.Location)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score1_90)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score2_90)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score1_120)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score2_120)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PK1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PK2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country1.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Group.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorldCup.Location)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Game_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Game_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Game_Id })
+        </td>
+    </tr>
+}
+
+</table>
